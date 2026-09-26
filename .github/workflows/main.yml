@@ -6,7 +6,6 @@ jobs:
 build:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Baixar código
     uses: actions/checkout@v4
@@ -46,4 +45,3 @@ steps:
       name: crmcredsempremais-cpanel
       path: crmcredsempremais-cpanel.zip
       retention-days: 7
-```

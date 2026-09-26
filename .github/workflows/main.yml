@@ -49,4 +49,3 @@ steps:
       name: crmcredsempremais-cpanel
       path: crmcredsempremais-cpanel.zip
       retention-days: 7
-```

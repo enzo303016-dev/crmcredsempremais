@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-blue: #034AA6;
+    --brand-navy: #022859;
+    --brand-yellow: #F2B807;
+    --brand-orange: #F28907;
+    --brand-gray: #F2F2F2;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #F2F2F2;
+    color: #022859;
+  }
+  
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Brand Palette Helper Utilities */
+.bg-brand-navy { background-color: #022859; }
+.bg-brand-blue { background-color: #034AA6; }
+.bg-brand-yellow { background-color: #F2B807; }
+.bg-brand-orange { background-color: #F28907; }
+.bg-brand-gray { background-color: #F2F2F2; }
+
+.text-brand-navy { color: #022859; }
+.text-brand-blue { color: #034AA6; }
+.text-brand-yellow { color: #F2B807; }
+.text-brand-orange { color: #F28907; }
+
+.border-brand-navy { border-color: #022859; }
+.border-brand-blue { border-color: #034AA6; }
+.border-brand-yellow { border-color: #F2B807; }
+.border-brand-orange { border-color: #F28907; }
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E2E8F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #034AA6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #022859;
+}
+

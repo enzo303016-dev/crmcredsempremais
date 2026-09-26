@@ -1,0 +1,6 @@
+{
+  "name": "Cred Sempre + CRM",
+  "description": "Sistema CRM profissional para empresas de crédito consignado, financiamentos e serviços financeiros.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

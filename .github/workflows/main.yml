@@ -30,7 +30,7 @@ steps:
   - name: Preparar pacote para cPanel
     run: |
       mkdir -p pacote-crm
-      cp -r dist pacote-crm/
+      cp -r dist/* pacote-crm/
       cp -r API pacote-crm/ 2>/dev/null || true
       cp -r api pacote-crm/ 2>/dev/null || true
       cp -r cron pacote-crm/ 2>/dev/null || true
@@ -38,7 +38,6 @@ steps:
       cp -r config pacote-crm/ 2>/dev/null || true
       cp -r biblioteca pacote-crm/ 2>/dev/null || true
       cp .env.exemplo pacote-crm/ 2>/dev/null || true
-      cp package.json pacote-crm/ 2>/dev/null || true
 
   - name: Criar ZIP
     run: |

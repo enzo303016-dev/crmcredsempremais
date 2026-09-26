@@ -1,0 +1,54 @@
+name: Build CRM Cred Sempre+
+
+on:
+push:
+branches:
+- main
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: ubuntu-latest
+
+```
+steps:
+  - name: Baixar código
+    uses: actions/checkout@v4
+
+  - name: Configurar Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: 20
+      cache: npm
+
+  - name: Instalar dependências
+    run: npm ci
+
+  - name: Executar build
+    run: npm run build
+
+  - name: Preparar pacote para cPanel
+    run: |
+      mkdir -p pacote-crm
+      cp -r dist pacote-crm/
+      cp -r API pacote-crm/ 2>/dev/null || true
+      cp -r api pacote-crm/ 2>/dev/null || true
+      cp -r cron pacote-crm/ 2>/dev/null || true
+      cp -r configuração pacote-crm/ 2>/dev/null || true
+      cp -r config pacote-crm/ 2>/dev/null || true
+      cp -r biblioteca pacote-crm/ 2>/dev/null || true
+      cp .env.exemplo pacote-crm/ 2>/dev/null || true
+      cp package.json pacote-crm/ 2>/dev/null || true
+
+  - name: Criar ZIP
+    run: |
+      cd pacote-crm
+      zip -r ../crmcredsempremais-cpanel.zip .
+
+  - name: Disponibilizar pacote
+    uses: actions/upload-artifact@v4
+    with:
+      name: crmcredsempremais-cpanel
+      path: crmcredsempremais-cpanel.zip
+      retention-days: 7
+```

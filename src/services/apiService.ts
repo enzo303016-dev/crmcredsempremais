@@ -756,18 +756,38 @@ class ApiService {
   }
 
   public async login(email: string, pass: string): Promise<User> {
-    await new Promise((res) => setTimeout(res, 400));
-
     const cleanEmail = email.trim().toLowerCase();
-    const user = this.users.find((u) => u.email.toLowerCase() === cleanEmail);
 
-    if (!user) {
-      throw new Error('E-mail ou senha incorretos.');
+    if (!cleanEmail || !pass) {
+      throw new Error('E-mail e senha são obrigatórios.');
     }
 
-    if (!pass || pass.length < 3) {
-      throw new Error('E-mail ou senha incorretos.');
+    const response = await fetch('/api/auth.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        action: 'login',
+        email: cleanEmail,
+        password: pass,
+      }),
+    });
+
+    let payload: any = null;
+    try {
+      payload = await response.json();
+    } catch {
+      throw new Error('Resposta inválida do servidor de autenticação.');
     }
+
+    if (!response.ok || !payload?.success || !payload?.user) {
+      throw new Error(payload?.message || 'E-mail ou senha incorretos.');
+    }
+
+    const user = payload.user as User;
 
     if (user.status === 'Inativo') {
       throw new Error('Usuário inativo. Entre em contato com o Administrador.');
@@ -788,10 +808,9 @@ class ApiService {
     try {
       const data = localStorage.getItem(CURRENT_USER_KEY);
       if (!data) return null;
-      const parsed: User = JSON.parse(data);
-      const updated = this.users.find((u) => u.id === parsed.id);
-      return updated || parsed;
-    } catch (e) {
+      return JSON.parse(data) as User;
+    } catch {
+      localStorage.removeItem(CURRENT_USER_KEY);
       return null;
     }
   }
